@@ -253,3 +253,26 @@ insert into st_info (prn,name,m1,m2,m3) values(st_sq.nextval,'xa1011',12,13,15);
 Create sequence emp_sq start with 1 increment by 1;
 
 create table emp (emp_id int primary key,name varchar2(20));
+INSERT INTO EMP VALUES(1, 'Mike',1926834912);
+INSERT INTO EMP VALUES(2, 'Gwen',8532785394);
+INSERT INTO EMP VALUES(3, 'Elena',);
+INSERT INTO EMP VALUES(4, 'Jack');
+INSERT INTO EMP VALUES(5, 'Jim');
+INSERT INTO EMP VALUES(6, 'Bruce');
+INSERT INTO EMP VALUES(7, 'Ryan');
+INSERT INTO EMP VALUES(8, 'Justin');
+INSERT INTO EMP VALUES(9, 'Alice');
+INSERT INTO EMP VALUES(10, 'John');
+
+update emp set NUM=7624957138 where emp_id=1;
+update emp set NUM=2492581304 where emp_id=2;
+update emp set NUM=0367805601 where emp_id=3;
+update emp set NUM=0348512075 where emp_id=4;
+update emp set NUM=6904601509 where emp_id=5;
+
+
+OR
+
+Delete all data using trunket and then reupload it from notepad after adding NUM for each entry.
+
+drop sequence emp_seq;
