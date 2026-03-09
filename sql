@@ -348,4 +348,18 @@ INSERT INTO Assignments (emp_id, proj_id, hours_worked) VALUES (5, 203, 35);
 INSERT INTO Assignments (emp_id, proj_id, hours_worked) VALUES (6, 204, 25);
 INSERT INTO Assignments (emp_id, proj_id, hours_worked) VALUES (7, 202, 45);
 
+DATE-9-3-26
+
+ CREATE OR REPLACE PROCEDURE sumfirst10numbers_whileloop AS
+  2     i NUMBER := 1;
+  3     sum1 NUMBER := 0;
+  4  BEGIN
+  5     WHILE i <= 10 LOOP
+  6        sum1 := sum1 + i;
+  7        i := i + 1;
+  8     END LOOP;
+  9
+ 10     DBMS_OUTPUT.PUT_LINE('Result of Sum: ' || sum1);
+ 11  END;
+ 12  /
 
