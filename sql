@@ -556,6 +556,30 @@ exec show_st(7);
 
 select * from st_info;
 
+-----------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------
+24-3-26
+
+create or replace procedure find_empid(n in number)
+as
+   vname employees.emp_name%Type;
+   vsalary employees.emp_salary%Type;
+begin
+   select emp_name,salary into vname,vsalary from employees where emp_id = n;
+   DBMS_output.put.line('Name=' || vname);
+   DBMS_output.put.line('Salary=' || vsalary);
+exception
+  when no_data_found then
+   DBMS_output.put.line('Employees ID=' || n || 'Not Found');
+END;
+/
+
+
+begin if m1<0 or m1
+
+
+
+
 
 
 
