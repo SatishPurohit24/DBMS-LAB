@@ -577,7 +577,26 @@ END;
 
 begin if m1<0 or m1
 
+______________________________________________________________----------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------
+30/3/26
 
+Create or replace trigger tri_name
+  2  before insert on st_info
+  3  begin
+  4  DBMS_OUTPUT.PUT_LINE('This is statement level Trigger fired');
+  5  END;
+  6  /
+
+
+
+
+Create or replace trigger tri_ins
+before insert on st_info for each row
+BEGIN
+if(SUB1<0 or SUB1>100) then
+END;
+/
 
 
 
