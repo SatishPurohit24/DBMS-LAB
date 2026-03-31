@@ -600,6 +600,53 @@ END;
 
 
 
+----------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------
+31-3-26
+ (in trigger if you  have to declare the you have to write declare in the processure)
+
+Q1]create a table emp2 with fields as int ,name ,name as charactor , catagory as int take only 3 categories as 1,2,3
+
+Create table emp2(
+emp2_id INT,
+name VARCHAR2(20),
+category INT,
+CHECK(category in (1,2,3)));
+create a table emp2 with fields as int ,name ,name as charactor , catagory as int take only 3 categories as 1,2,3
+
+
+Q2]desigh a trigger for insertion or updation a new record in capital letters only hint: name=upper(name)
+
+
+Create or replace trigger tri_em
+Before insert or update on emp2 for each row
+Begin
+:new.name := upper(:new.name);
+END;
+/
+
+INSERT into emp2 VALUES (101,'dhoke',1);
+
+
+
+Q3]add another field salary as number to the table
+
+
+create or replace trigger no_ins_upd
+before inser and update on emp2
+(as) 
+  v-day varchar2(10);
+begin
+v_day:=to_char(sysdate,'dy');
+if v_day='true' then
+	raise_application_error(-20001,'cant insert or update on table' || v_day);
+end if;
+end;
+/
+
+
+
+
 
 
 
