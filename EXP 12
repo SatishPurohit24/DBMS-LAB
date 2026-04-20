@@ -1,0 +1,41 @@
+1. Function to Find the Largest Number Between Two Numbers
+CREATE OR REPLACE FUNCTION largest_of_two(
+    x IN INT,
+    y IN INT
+) RETURN INT
+AS
+BEGIN
+    IF x > y THEN
+        RETURN x;
+    ELSE
+        RETURN y;
+    END IF;
+END;
+/
+Calling the Function in SQLPlus:
+SELECT largest_of_two(15, 10) FROM dual;
+
+2. Function to Find the Total Number of Employees
+CREATE OR REPLACE FUNCTION number_of_employees
+RETURN NUMBER
+AS
+    total NUMBER := 0;
+BEGIN
+    SELECT COUNT(*)
+    INTO total
+    FROM emp;
+
+    RETURN total;
+END;
+/
+
+3. Function to Return the Email ID of an Employee
+CREATE OR REPLACE FUNCTION email_return(
+    v_fname mytable.fname%TYPE,
+    v_lname mytable.lname%TYPE
+) RETURN VARCHAR2
+AS
+BEGIN
+    RETURN v_fname || '.' || v_lname || '@sitnagpur.siu.edu.in';
+END;
+/
