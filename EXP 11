@@ -1,0 +1,101 @@
+# Functions in PL/SQL
+1 .Calculate Total, Percentage & Division
+CREATE OR REPLACE FUNCTION Function_1(
+marks1 NUMBER,
+marks2 NUMBER,
+marks3 NUMBER
+)
+RETURN NUMBER
+IS
+Total NUMBER;
+Perc  NUMBER;
+BEGIN
+Total := marks1 + marks2 + marks3;
+DBMS_OUTPUT.PUT_LINE('Total : ' || Total);
+Perc := Total / 3;
+DBMS_OUTPUT.PUT_LINE('Percentage : ' || Perc);
+IF Perc > 75 THEN
+DBMS_OUTPUT.PUT_LINE('Distinction Division');
+ELSIF Perc > 60 THEN
+DBMS_OUTPUT.PUT_LINE('First Class Division');
+ELSE
+DBMS_OUTPUT.PUT_LINE('Fail');
+END IF;
+RETURN Perc;
+END Function_1;
+/
+# Execution block
+SET SERVEROUTPUT ON;
+SELECT Function_1(35,55,85) FROM dual;
+# OUTPUT:
+FUNCTION_1(35,55,85)
+58.3333333
+Total : 175
+Percentage : 58.33
+Fail
+
+
+#other code for same problem 
+CREATE OR REPLACE FUNCTION Function_1(
+marks1 NUMBER,
+marks2 NUMBER,
+marks3 NUMBER
+)
+RETURN NUMBER
+IS
+Total NUMBER;
+Perc NUMBER;
+BEGIN
+Total := marks1 + marks2 + marks3;
+DBMS_OUTPUT.PUT_LINE('Total' || Total);
+Perc := Total / 3;
+DBMS_OUTPUT.PUT_LINE('Percentage' || Perc);
+IF Perc > 75 THEN
+DBMS_OUTPUT.PUT_LINE('Distinction Division');
+ELSIF Perc > 60 THEN
+DBMS_OUTPUT.PUT_LINE('First class Division');
+ELSE
+DBMS_OUTPUT.PUT_LINE('Fail');
+END IF;
+RETURN Perc;
+END Function_1;
+/
+SELECT Function_1(35,55,85) FROM dual;
+#OUTPUT:
+FUNCTION_1(35,55,85)
+58.3333333
+Total175
+Percentage58.3333333
+Fail
+
+
+2.Add Two Numbers
+CREATE OR REPLACE FUNCTION Add_Num(a IN INT, b IN INT)
+RETURN INT
+IS
+c INT;
+BEGIN
+c := a + b;
+RETURN c;
+END;
+/
+SELECT Add_Num(12, 14) FROM dual;
+OUTPUT:
+ADD_NUM(12,14)
+26
+
+
+3.Square of a Number
+CREATE OR REPLACE FUNCTION Sqrt_Num(a IN INT)
+RETURN INT
+IS
+c INT;
+BEGIN
+c := a * a;
+RETURN c;
+END;
+/
+SELECT Sqrt_Num(12) FROM dual;
+#OUTPUT:
+SQRT_NUM(12)
+144
