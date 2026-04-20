@@ -1,0 +1,82 @@
+SOME EXTRA CODES
+
+create or replace procedure to_mnth
+as
+v_month varchar2(10);
+begin
+v_month:=to_char(sysdate, 'mon');
+dbms_output.put_line('the current month is ' || v_month);
+end;
+/
+set serveroutput on
+exec to_mnth;
+output: the current month is mar
+
+
+create or replace procedure to_mnth
+as
+v_month varchar2(10);
+begin
+v_month:=upper(to_char(sysdate, 'month'));
+dbms_output.put_line('the current month is ' || v_month);
+end;
+/
+set serveroutput on
+exec to_mnth;
+output: the current month is MARCH
+
+
+create or replace procedure to_mnth
+as
+v_month varchar2(10);
+begin
+v_month:=upper(to_char(sysdate, 'day'));
+dbms_output.put_line('the current day is ' || v_month);
+end;
+/
+set serveroutput on
+exec to_mnth;
+output: the current day is TUESDAY
+
+
+create or replace procedure to_mnth
+as
+v_month varchar2(10);
+begin
+v_month:=upper(to_char(sysdate, 'dy'));
+dbms_output.put_line('the current day is ' || v_month);
+end;
+/
+set serveroutput on
+exec to_mnth;
+output: the current day is TUE
+
+# Design a trigger to stop insertion or updation in the table for the days like sat or sun of any date ( for practice purpose take the day as 'tue')
+Shortcut -> CREATE OR REPLACE TRIGGER no_ins_upd
+(AS) declare
+    v_day VARCHAR2(10);
+BEGIN
+    v_day :=TO_CHAR(SYSDATE, 'DAY');
+    IF v_day = 'TUESDAY' THEN
+        RAISE_APPLICATION_ERROR(-20001, 'Insertion or Updation is not allowed on ' || v_day);
+    END IF;
+END;
+/
+
+
+#Actual code
+CREATE OR REPLACE TRIGGER check_day
+BEFORE INSERT OR UPDATE ON emp2
+FOR EACH ROW
+DECLARE
+ v_day VARCHAR2(10);
+ BEGIN
+ v_day := UPPER(TRIM(TO_CHAR(SYSDATE, 'DAY')));
+IF v_day = 'TUESDAY' THEN
+RAISE_APPLICATION_ERROR(-20001,'Insertion or Updation is not allowed on Tuesday');
+END IF;
+END;
+/
+INSERT INTO emp2 VALUES (11, 'aaa', 2, 45000);
+#OUTPUT
+Insertion or Updation is not allowed on Tuesday
