@@ -1,0 +1,185 @@
+PRACTICAL 6 
+
+CREATE OR REPLACE PROCEDURE hello_world
+AS
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Hello World ! Welcome to SIT');
+END;
+/
+
+set serveroutput on;
+execute hello_world;
+exec hello_world;
+
+
+CREATE OR REPLACE PROCEDURE ADDNumbers
+AS
+    a NUMBER;
+    b NUMBER;
+BEGIN
+    a := 5;
+    b := 10;
+    
+    DBMS_OUTPUT.PUT_LINE('RESULT: ' || (a + b));
+END;
+/
+execute ADDNumbers;
+
+
+CREATE OR REPLACE PROCEDURE ADD1 (
+    a IN NUMBER,
+    b IN NUMBER )
+AS
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('RESULT: ' || (a + b));
+END;
+/
+exec ADD1 (5,10);
+
+
+
+CREATE OR REPLACE PROCEDURE ADD1 (
+    a IN NUMBER,
+    b IN NUMBER,
+    c Out NUMBER )
+AS
+BEGIN
+    c := (a+b) ;
+    DBMS_OUTPUT.PUT_LINE('RESULT: ' || (c));
+END;
+/
+variable c1 Number;
+exec ADD1 (5,10,:c1);
+
+
+CREATE OR REPLACE PROCEDURE SwapNumbers (
+    num1 IN OUT NUMBER,
+    num2 IN OUT NUMBER
+) AS
+BEGIN
+    num1 := num1 + num2;
+    num2 := num1 - num2;
+    num1 := num1 - num2;
+END;
+/
+
+
+1) Simple Procedure – hello_world
+CREATE PROCEDURE hello_world
+AS
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Hello World!');
+END;
+/
+
+2) Correct Procedure – helloworld
+CREATE PROCEDURE helloworld
+AS
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Hello World!');
+END;
+/
+
+SET SERVEROUTPUT ON;
+EXEC helloworld;
+
+3) Using CREATE OR REPLACE
+CREATE OR REPLACE PROCEDURE helloworld
+AS
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Welcome to SIT');
+END;
+/
+
+EXEC helloworld;
+
+4) Procedure Without Parameters
+CREATE OR REPLACE PROCEDURE add_1
+AS
+    a NUMBER;
+    b NUMBER;
+BEGIN
+    a := 5;
+    b := 10;
+    DBMS_OUTPUT.PUT_LINE('Result: ' || (a + b));
+END;
+/
+
+SET SERVEROUTPUT ON;
+EXEC add_1;
+
+5) Procedure With IN Parameters
+CREATE OR REPLACE PROCEDURE add_1(
+    a IN NUMBER,
+    b IN NUMBER
+)
+AS
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Result: ' || (a + b));
+END;
+/
+EXEC add_1(5, 10);
+
+6) Procedure With OUT Parameter
+CREATE OR REPLACE PROCEDURE add_2(
+    a IN NUMBER,
+    b IN NUMBER,
+    c OUT NUMBER
+)
+AS
+BEGIN
+    c := a + b;
+    DBMS_OUTPUT.PUT_LINE('Result: ' || c);
+END;
+/
+
+VARIABLE c1 NUMBER;
+EXEC add_2(5, 10, :c1);
+
+
+7) Swapping Two Numbers (Without Third Variable)
+CREATE OR REPLACE PROCEDURE swap_1(
+    x IN OUT NUMBER,
+    y IN OUT NUMBER
+)
+AS
+BEGIN
+    x := x + y;
+    y := x - y;
+    x := x - y;
+
+    DBMS_OUTPUT.PUT_LINE('Value of x: ' || x);
+    DBMS_OUTPUT.PUT_LINE('Value of y: ' || y);
+END;
+/
+
+SQL> Set ServerOutput ON;
+SQL> VARIABLE a NUMBER;
+SQL> VARIABLE b NUMBER;
+
+SQL> EXEC :a := 5;
+
+SQL> EXEC :b := 10;
+
+SQL> EXEC swap_1(:a, :b);
+
+
+8) Find Largest Among Three Numbers
+CREATE OR REPLACE PROCEDURE largest_3(
+    a IN NUMBER,
+    b IN NUMBER,
+    c IN NUMBER
+)
+AS
+BEGIN
+    IF a > b AND a > c THEN
+        DBMS_OUTPUT.PUT_LINE('Largest number is: ' || a);
+    ELSIF b > a AND b > c THEN
+        DBMS_OUTPUT.PUT_LINE('Largest number is: ' || b);
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('Largest number is: ' || c);
+    END IF;
+END;
+/
+
+EXEC largest_3(10, 25, 15);
