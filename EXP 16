@@ -1,0 +1,31 @@
+create or replace trigger Min_Max_salary
+before insert or update on emp2
+for each row
+DECLARE
+  max_sal number(10,2);
+  min_sal number(10,2);
+begin 
+select min(sal) * 10 into max_sal from emp2;
+select max(sal) / 10 into min_sal FROM emp2;
+if :new.sal  not between min_sal and max_sal then
+    raise_application_error(-20021, 'Salary out of allowed range');
+  end if;
+end;
+/
+
+
+manual code:
+CREATE OR REPLACE TRIGGER SalaryTrig 
+BEFORE INSERT ON emp_dup
+FOR EACH ROW
+DECLARE
+  v_upper_sal_limit NUMBER(10,2);
+  v_lower_sal_limit NUMBER(10,2);
+BEGIN
+  SELECT MIN(sal) * 10 INTO v_upper_sal_limit FROM emp_dup;
+  SELECT MAX(sal) / 10 INTO v_lower_sal_limit FROM emp_dup;
+  IF :new.sal  NOT BETWEEN v_lower_sal_limit AND v_upper_sal_limit THEN
+    RAISE_APPLICATION_ERROR(-20021, 'Salary out of allowed range');
+  END IF;
+END;
+/
