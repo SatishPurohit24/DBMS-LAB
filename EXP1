@@ -1,0 +1,40 @@
+DDL : DATA DEFINITION LANGUAGE
+IMPLEMENTING BASIC SQL COMMANDS
+1.CREATE : TO CREATE TABLES, PROCEDURES, TRIGGERS ETC
+2.ALTER : TO MODIFY THE STRUCTURE OF TABLE 
+3.TRUNCATE : TO DELETE ALL THE DATA, BUT NOT THE TABLE
+4.DROP : ENTIRE TABLE WILL BE DELETED, ALSO DATA
+5.RENAME : RENAME TABLES, COLUMNS IN DBMS
+Example : Alter table St_info Rename to St_information
+for columns : Alter table St_information Rename m1 to physics 
+NOTE : This is auto commit language.(everything will be saved.)
+
+DML : DATA MANIPULATION LANGUAGE
+IMPLEMENTING BASIC SQL COMMANDS
+1.INSERT COMMAND : TO INSERT DATA INTO THE TABLE
+2.UPDATE : TO UPDATE THE COLUMNS (USE SET WITH IT)
+
+
+19th jan codes:
+create table student_info (prn INT PRIMARY KEY, name VARCHAR(50), m1 INT, m2 INT, m3 INT);
+1.select * from tab; (to see no of tables in database)
+2.desc student_info #student_info(to see the attributes in the table or table structure)
+3.Insert data in table 
+insert into student_info (101,'xyz', 65, 75, 85); #error : missing select keyword
+insert into student_info values (101,'xyz', 65, 75, 85);
+1 row created.
+insert into student_info values (102,'abc', 5, 6, 7);
+4. add column to st_info:
+alter table student_info add total number;
+alter table student_info dd perc number;
+insert into student_info values (102,'abc', 5, 6, 7); # error : not enough values ecause values for total and percent not passed
+insert into student_info values (103,'Amit',   72, 68, 81, null, null);
+insert into student_info values (104,'Riya',   88, 74, 69, null, null);
+insert into student_info values (105,'Kunal',  61, 79, 85, null, null);
+insert into student_info values (106,'Sneha',  90, 82, 76, null, null);
+insert into student_info values (107,'Rahul',  55, 67, 73, null, null);
+insert into student_info values (108,'Pooja',  78, 91, 84, null, null);
+insert into student_info values (109,'Vikas',  69, 72, 88, null, null);
+insert into student_info values (110,'Neha',   85, 64, 79, null, null);
+insert into student_info values (111,'Arjun',  92, 87, 71, null, null);
+insert into student_info values (112,'Meera',  66, 83, 90, null, null);
