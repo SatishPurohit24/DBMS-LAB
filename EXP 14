@@ -1,0 +1,60 @@
+1. Create a table emp2 with fields empno as int ,name as character ,category as int (take only 3 categories ie 1,2 and 3)
+2. Design a trigger for insertion or updation a new record in capital letters only
+hint : name =upper(name);
+3. Add another filed salary as number to the table.
+4. Design a trigger for insertion or updation for the following:
+if category is 1 then salary should be more than 10000
+if category is 2 then salary should be more than 20000
+if category is 3 then salary should be more than 30000
+
+
+1. Create Table
+CREATE TABLE emp2 (
+    empno NUMBER PRIMARY KEY,
+    name VARCHAR2(50),
+    category NUMBER CHECK (category IN (1,2,3))
+);
+# Insert RECORDS
+INSERT INTO emp2 VALUES (1, 'arjun', 2);
+INSERT INTO emp2 VALUES (2, 'meera', 3);
+INSERT INTO emp2 VALUES (3, 'rohan', 1);
+INSERT INTO emp2 VALUES (4, 'kavya', 2);
+INSERT INTO emp2 VALUES (5, 'neha', 1);
+INSERT INTO emp2 VALUES (6, 'vikram', 2);
+SELECT * FROM emp2;
+
+2. Trigger to Convert Name into Uppercase
+CREATE OR REPLACE TRIGGER emp2_capital_trg
+BEFORE INSERT OR UPDATE ON emp2
+FOR EACH ROW
+BEGIN
+    :NEW.name := UPPER(:NEW.name);
+END;
+/
+
+3.Add Salary Column
+ALTER TABLE emp2
+ADD salary NUMBER;
+DESC emp2;
+# Insert Records with Salary
+INSERT INTO emp2 VALUES (7, 'amit', 3, 50000);
+INSERT INTO emp2 VALUES (8, 'sneha', 2, 8000);
+INSERT INTO emp2 VALUES (9, 'rahul', 2, 14000);
+INSERT INTO emp2 VALUES (10, 'pooja', 1, 23000);
+SELECT * FROM emp2;
+
+
+4. Trigger to Enforce Salary Rules
+CREATE OR REPLACE TRIGGER emp2_salary_trg
+BEFORE INSERT OR UPDATE ON emp2
+FOR EACH ROW
+BEGIN
+    IF :NEW.category = 1 AND :NEW.salary <= 10000 THEN
+        RAISE_APPLICATION_ERROR(-20001, 'Salary must be > 10000 for category 1'); 
+    ELSIF :NEW.category = 2 AND :NEW.salary <= 20000 THEN
+        RAISE_APPLICATION_ERROR(-20002, 'Salary must be > 20000 for category 2');  
+    ELSIF :NEW.category = 3 AND :NEW.salary <= 30000 THEN
+        RAISE_APPLICATION_ERROR(-20003, 'Salary must be > 30000 for category 3');
+    END IF;
+END;
+/
