@@ -1,0 +1,107 @@
+#Exception Handling
+1) Procedure: Get Employee Name and Salary
+CREATE OR REPLACE PROCEDURE Get_Empname(id IN NUMBER)
+AS
+s_name employees.emp_name%TYPE;
+s_sal  employees.salary%TYPE;
+s_id   employees.emp_id%TYPE;
+BEGIN
+SELECT emp_id, emp_name, salary
+INTO s_id, s_name, s_sal
+FROM employees
+WHERE emp_id = id;
+DBMS_OUTPUT.PUT_LINE('Employee Name : ' || s_name);
+DBMS_OUTPUT.PUT_LINE('Salary : ' || s_sal);
+EXCEPTION
+WHEN NO_DATA_FOUND THEN
+DBMS_OUTPUT.PUT_LINE('ID not found');
+END;
+/
+#  Execute Procedure
+SET SERVEROUTPUT ON;
+EXEC Get_Empname(2);
+# OUTPUT:
+Employee Name : Alice
+Salary : 3000
+
+
+2.MAX_ROWS_FOUND:
+Procedure: Get Department Employee Details
+
+CREATE OR REPLACE PROCEDURE Get_Dept_id(n IN NUMBER)
+AS
+s_name employees.emp_name%TYPE;
+s_sal  employees.salary%TYPE;
+BEGIN
+SELECT emp_name, salary
+INTO s_name, s_sal
+FROM employees
+WHERE dept_id = n;
+
+DBMS_OUTPUT.PUT_LINE('Employee Name : ' || s_name);
+DBMS_OUTPUT.PUT_LINE('Salary : ' || s_sal);
+
+EXCEPTION
+WHEN TOO_MANY_ROWS THEN
+DBMS_OUTPUT.PUT_LINE('Maximum Employees found in dept = ' || n);
+END;
+/
+
+EXEC Get_Dept_id(102);
+-- Maximum Employees found in dept = 102
+
+
+3. Procedure: Validate Marks (0–100)
+CREATE OR REPLACE PROCEDURE check_marks(m NUMBER)
+AS
+invalid_marks EXCEPTION;
+BEGIN
+IF m < 0 OR m > 100 THEN
+RAISE invalid_marks;
+ELSE
+DBMS_OUTPUT.PUT_LINE('Valid Marks : ' || m);
+END IF;
+
+EXCEPTION
+WHEN invalid_marks THEN
+DBMS_OUTPUT.PUT_LINE('Error: Marks should be between 0 and 100');
+END;
+/
+SET SERVEROUTPUT ON;
+EXEC check_marks(85);
+ Valid Marks : 85
+EXEC check_marks(120);
+ Error: Marks should be between 0 and 100
+
+
+
+4.3 subject marks (user defined exception example)
+CREATE OR REPLACE PROCEDURE GetExcep( M1 IN NUMBER, M2 IN NUMBER, M3 IN NUMBER)
+AS
+	INVALID_MARKS EXCEPTION;
+BEGIN 
+	IF M1<0 OR M1>100 OR M2<0 OR M2>100 OR M3<0 OR M3>100 THEN 
+		RAISE INVALID_MARKS;
+	ELSIF M1 >= 50 AND M2 >= 50 AND M3 >= 50 THEN 
+		DBMS_OUTPUT.PUT_LINE('RESULT = PASS');
+	ELSE
+		DBMS_OUTPUT.PUT_LINE('RESULT=FAIL');
+	END IF;
+EXCEPTION
+	WHEN INVALID_MARKS THEN 
+		DBMS_OUTPUT.PUT_LINE('ENTER VALID MARKS IN THE RANGE 0-100');
+END;
+/
+EXEC GetExcep(80, 90, 75);
+EXEC GetExcep(40, 60, 70);
+EXEC GetExcep(-10, 50, 60);
+#Output
+SQL> EXEC GetExcep(80, 90, 75);
+RESULT = PASS
+PL/SQL procedure successfully completed.
+SQL> EXEC GetExcep(40, 60, 70);
+RESULT=FAIL
+PL/SQL procedure successfully completed.
+SQL> EXEC GetExcep(-10, 50, 60);
+ENTER VALID MARKS IN THE RANGE 0-100
+PL/SQL procedure successfully completed.
